@@ -4,15 +4,15 @@ const os = require("os");
 const path = require("path");
 
 class Wizard {
-  constructor(extensionId, developerID, createdBy, extensionName, description) {
-    this._extensionId = extensionId;
-    this._developerID = developerID;
+  constructor() {
+    this._extensionId,
+      this._developerID,
+      this._createdBy,
+      this._extensionName,
+      this._description;
     this._version = 1;
     //YYYY-MM-DD
     this._created = Wizard.creationDate();
-    this._createdBy = createdBy;
-    this._extensionName = extensionName;
-    this._description = description;
     this._path = os.homedir();
   }
 
@@ -20,7 +20,9 @@ class Wizard {
     if (ext.length === 36) {
       this._extensionId = ext;
     } else {
-      throw new Error("Extension ID not valid");
+      throw new Error(
+        "Extension ID not valid, it must be a string made of 36 characters: \n\r"
+      );
     }
   }
 
@@ -54,7 +56,7 @@ class Wizard {
 
   set extensionName(name) {
     if (name.length !== 0) {
-      this._extensionName = name;
+      this._extensionName = name.replace(/\s/g, "").toLocaleLowerCase();
     } else {
       throw new Error("Extension name is not valid");
     }
@@ -81,7 +83,7 @@ class Wizard {
    */
   static creationDate() {
     let date = new Date();
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 
   /**
@@ -93,6 +95,7 @@ class Wizard {
       developerID: this._developerID,
       createdBy: this._createdBy,
       name: this._extensionName,
+      version: this._version,
       timeCreated: this._created,
       description: this._description
     };
@@ -123,38 +126,25 @@ class Wizard {
    */
   createJavascriptFile() {
     let jsFile = `
-      // Javascript widget file \n
-      // Implementation guide \n
-      // https://docs.oracle.com/cd/E65426_01/Cloud.15-3/WidgetDev/html/s0207createcustomjavascript01.html \n\r
-
-      define( \n
+      // Javascript widget file\n
+      define(\n
         // Dependencies\n
-        ['jquery', 'knockout'],\n\r
-      
-        // Module Implementation \n
-        function(ko) { \n
-           // We recommend enabling strict checking mode \n
-           'use strict'; \n\r
-         
-           // Private variables and functions can be defined here... \n
-           var SOME_CONSTANT = 1024; \n\r
-      
-           var privateMethod = function () { \n
-             // ... \n
-           }; \n\r
-      
-           return { \n
-            // Widget JS \n
-            // Some member variables... \n
-            textInput: ko.observable(), \n
-            // Some public methods... \n
-            doSomethingWithInput: function () { \n
-              //... \n
-            } \n
-          } \n
-      }); \n\r
-
-      `;
+        ['jquery', 'knockout'],\n
+        // Module Implementation\n
+        function(ko) {\n
+           // We recommend enabling strict checking mode\n
+           'use strict';\n
+           // Private variables and functions can be defined here...\n
+           var SOME_CONSTANT = 1024;\n
+           var privateMethod = function () {\n
+             // ...\n
+           };\n
+           return {\n
+            // Widget JS\n
+            // Some member variables...\n
+            // Some public methods...\n
+          }\n
+      });`;
 
     return jsFile;
   }
@@ -164,14 +154,8 @@ class Wizard {
    */
   createTheHtmlTemplate() {
     let display = `
-      // Template File \n
-      // Implementation guide: \n
-      // https://docs.oracle.com/cd/E65426_01/Cloud.15-3/WidgetDev/html/s0209createaconfigurablelayout01.html \n\r
-
-      <div class="myWidget"> /n
-      \n
-      </div> \n\r
-    `;
+      <!-- Template File -->
+      <div class="myWidget">Hello World</div>`;
 
     return display;
   }
@@ -181,15 +165,8 @@ class Wizard {
    */
   createTheLessFile() {
     let wCss = `
-    // Widget CSS Less \n
-    // Implementation guide: \n
-    // https://docs.oracle.com/cd/E65426_01/Cloud.15-3/WidgetDev/html/s0207configureawidgetsstyle01.html \n\r
-    
-    .myWidget { \n
-      \n
-    } \n\r
-    
-    `;
+    /* Widget CSS Less */
+    .myWidget {}`;
 
     return wCss;
   }
@@ -198,7 +175,7 @@ class Wizard {
    * Create the base folder structure for the widget
    */
   createProjectStructure() {
-    const curDir = path.resolve(w._path);
+    const curDir = path.resolve(this._path);
 
     try {
       if (!fs.existsSync(curDir)) {
@@ -246,8 +223,6 @@ class Wizard {
           error => {
             if (error) {
               throw new Error("Cannot write file ext.json");
-            } else {
-              console.log("The file was saved!");
             }
           }
         );
@@ -261,8 +236,6 @@ class Wizard {
           error => {
             if (error) {
               throw new Error("Cannot write file widget.json");
-            } else {
-              console.log("The file was saved!");
             }
           }
         );
@@ -276,8 +249,6 @@ class Wizard {
           error => {
             if (error) {
               throw new Error("Cannot write file widget-javascript.js");
-            } else {
-              console.log("The file was saved!");
             }
           }
         );
@@ -291,8 +262,6 @@ class Wizard {
           error => {
             if (error) {
               throw new Error("Cannot write display.template file");
-            } else {
-              console.log("The file was saved!");
             }
           }
         );
@@ -306,10 +275,14 @@ class Wizard {
           error => {
             if (error) {
               throw new Error("Cannot write widget.less file");
-            } else {
-              console.log("The file was saved!");
             }
           }
+        );
+
+        console.log(
+          `Your new ${
+            this._extensionName
+          } widget project structure has been saved in: \n ${curDir}`
         );
       }
     } catch (error) {
@@ -317,15 +290,5 @@ class Wizard {
     }
   }
 }
-
-let w = new Wizard(
-  "8defeb5d-e958-4cb7-be7c-e28a37ec995d",
-  "12345678",
-  "Valerio D'Alessio",
-  "Example Widget",
-  "Open a service request to Oracle Service Cloud"
-);
-
-w.createProjectStructure();
 
 module.exports = Wizard;

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/valdal14/OCCS-Widget-Wizard#readme",
   "dependencies": {
-    "jasmine-node": "^1.16.2"
+    "jasmine-node": "^1.16.2",
+    "readline-sync": "1.4.9"
   }
 }

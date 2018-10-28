@@ -1,13 +1,13 @@
 const Wizard = require("../wizard");
 
 describe("Configuration Variables", () => {
-  wizard = new Wizard(
-    "83be3a58-9138-4cbe-884d-cc52b41b8d5b",
-    123456789,
-    "valdal14",
-    "Extension Test",
-    "This is a new Extension Test"
-  );
+  wizard = new Wizard();
+
+  wizard.extensionId = "83be3a58-9138-4cbe-884d-cc52b41b8d5b";
+  wizard.developerID = 12345678;
+  wizard.createdBy = "valdal14";
+  wizard.extensionName = "Extension Test";
+  wizard.description = "This is a new Extension Test";
 
   // Extension ID
   it("Extension ID should be at least 36 chars long", () => {
@@ -41,11 +41,11 @@ describe("Configuration Variables", () => {
 
   // Created Time
   it("Date should be today", () => {
-    expect(Wizard.creationDate()).toEqual("2018-10-6");
+    expect(Wizard.creationDate()).toEqual("2018-10-28");
   });
 
   it("Date should be today", () => {
-    expect(wizard._created).toEqual("2018-10-6");
+    expect(wizard._created).toEqual("2018-10-28");
   });
 
   // Created by
@@ -62,6 +62,11 @@ describe("Configuration Variables", () => {
   // Extension name
   it("Extension name should not be undefined", () => {
     expect(wizard._extensionName).toBeDefined();
+  });
+
+  it("Extension name should be lowered and should not contains spaces", () => {
+    let string = "OCCS Wizard".replace(/\s/g, "").toLocaleLowerCase();
+    expect(string).toEqual("occswizard");
   });
 
   it("Extension name should throw if if the argument length is 0", () => {
