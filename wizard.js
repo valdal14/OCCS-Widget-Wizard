@@ -1,4 +1,5 @@
 "use strict";
+const colors = require("colors");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
@@ -179,7 +180,9 @@ class Wizard {
 
     try {
       if (!fs.existsSync(curDir)) {
-        console.log("The widget folder already exists in you HDD");
+        console.log(
+          colors.red("The widget folder already exists in you HDD \n\r")
+        );
       } else {
         // create the container folder
         fs.mkdirSync(`${curDir}/${this._extensionName}`);
@@ -280,9 +283,11 @@ class Wizard {
         );
 
         console.log(
-          `Your new ${
-            this._extensionName
-          } widget project structure has been saved in: \n ${curDir}`
+          colors.green(
+            `Your new ${
+              this._extensionName
+            } widget project structure has been saved in: \n ${curDir}`
+          )
         );
       }
     } catch (error) {
