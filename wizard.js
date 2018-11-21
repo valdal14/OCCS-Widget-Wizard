@@ -3,6 +3,7 @@ const colors = require("colors");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const beautify = require("json-beautify");
 
 class Wizard {
   constructor() {
@@ -101,7 +102,7 @@ class Wizard {
       description: this._description
     };
 
-    return JSON.stringify(jsonFile);
+    return beautify(jsonFile, null, 2, 80);
   }
 
   /**
@@ -119,7 +120,7 @@ class Wizard {
       config: {}
     };
 
-    return JSON.stringify(wjsonFile);
+    return beautify(wjsonFile, null, 2, 80);
   }
 
   /**
@@ -127,24 +128,24 @@ class Wizard {
    */
   createJavascriptFile() {
     let jsFile = `
-      // Javascript widget file\n
-      define(\n
-        // Dependencies\n
-        ['jquery', 'knockout'],\n
-        // Module Implementation\n
-        function(ko) {\n
-           // We recommend enabling strict checking mode\n
-           'use strict';\n
-           // Private variables and functions can be defined here...\n
-           var SOME_CONSTANT = 1024;\n
-           var privateMethod = function () {\n
-             // ...\n
-           };\n
-           return {\n
-            // Widget JS\n
-            // Some member variables...\n
-            // Some public methods...\n
-          }\n
+      // Javascript widget file
+      define(
+        // Dependencies
+        ['knockout', 'jquery'],
+        // Module Implementation
+        function($, ko) {
+           // We recommend enabling strict checking mode
+           'use strict';
+           // Private variables and functions can be defined here...
+           var SOME_CONSTANT = 1024;
+           var privateMethod = function () {
+             // ...
+           };
+           return {
+            // Widget JS
+            // Some member variables...
+            // Some public methods...
+          }
       });`;
 
     return jsFile;

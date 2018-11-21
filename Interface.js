@@ -9,6 +9,10 @@ class Interface {
     console.log("\n");
     console.log(colors.green(".:: OCCS WIDGET CREATION WIZARD ::."));
     console.log("\n");
+    console.log(
+      "For more information how to create an Oracle Commerce Cloud extension please visit the link below: \n"
+    );
+    console.log("https://goo.gl/66Kdpp \n\r");
   }
 
   /**

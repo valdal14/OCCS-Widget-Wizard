@@ -41,11 +41,15 @@ describe("Configuration Variables", () => {
 
   // Created Time
   it("Date should be today", () => {
-    expect(Wizard.creationDate()).toEqual("2018-10-28");
+    let date = new Date();
+    today = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    expect(Wizard.creationDate()).toEqual(today);
   });
 
   it("Date should be today", () => {
-    expect(wizard._created).toEqual("2018-10-28");
+    let date = new Date();
+    today = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    expect(wizard._created).toEqual(today);
   });
 
   // Created by

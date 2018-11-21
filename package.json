@@ -4,7 +4,8 @@
   "description": "NPM Package that allows the creation of a base OCCS widget template",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node spec"
+    "test": "./node_modules/.bin/jasmine-node spec",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "dependencies": {
     "colors": "1.3.2",
     "jasmine-node": "^1.16.2",
+    "json-beautify": "^1.0.1",
     "readline-sync": "1.4.9"
   }
 }
