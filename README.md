@@ -37,7 +37,7 @@ This will automatically lunch the wizard and now you can provide the mandatory f
 
 For more information how to create an Oracle Commerce Cloud extension please visit the link below:
 
-[https://goo.gl/66Kdpp](https://goo.gl/66Kdpp)
+https://goo.gl/66Kdpp
 
 Please enter the extension id:
 ```
