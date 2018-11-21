@@ -46,6 +46,10 @@ Once the wizard process is completed the wizard will create a project structure 
 
 The last thing you must do is simply **zip** the **widget** folder and the **ext.json** file and you will be ready to upload the **.zip archive** to your OCCS instance.
 
+## Sample video on how to use the application
+
+https://youtu.be/eL_qcU2PCv0
+
 For more information about Oracle Commerce Cloud custom widget development please read the following doc:
 
 [OCCS Custom Widgets](https://docs.oracle.com/cd/E65426_01/Cloud.15-3/WidgetDev/html/s0201developacustomwidget01.html)
